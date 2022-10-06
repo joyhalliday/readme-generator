@@ -4,8 +4,10 @@ const inquirer = require(`inquirer`);
 const { writeToFile } = require('fs').promises;
 
 // TODO: Create an array of questions for user input 
-const questions = () => {
-    return inquirer.prompt([
+//const questions = () => {
+    //return 
+//inquirer.prompt(
+    const questions =   [
     {
         type: 'input', 
         name: 'title',
@@ -32,6 +34,12 @@ const questions = () => {
         message: 'Enter a usage description',
     },
     {
+        type: 'list',
+        name: 'license',
+        message: 'Select the license being used.',
+        choices: ['MIT','Apache','GNU','Creative Commons','Eclipse','Mozilla','None'],
+    },
+    {
         type: 'input',
         name: 'contributing',
         message: 'Enter contributer name(s).',
@@ -45,15 +53,30 @@ const questions = () => {
         type: 'input',
         name: 'questions',
         message: 'Enter any questions.',
-    },
-]);
+    }
+];
+function init() {
+    inquirer.prompt(questions)
+    .then((data) => {
+        console.log(data);
+
+    });
 };
+init();
+//}
+// .then((data) => {
+//     const filename = `${data.name.toLowerCase().split(' ').join('')}.json`;
+
+//     fs.writeToFile(filename, JSON.stringify(data, null, '\t'), (err) =>
+//     err ? console.log(err) : console.log('Success!')
+//     );
+// });
 
 // TODO: Create a function to write README file
-function writeToFile(fileName, data) {}
+// function writeToFile(fileName, data) {}
 
 // TODO: Create a function to initialize app
-function init() {}
+// function init() {}
 
 // Function call to initialize app
-init();
+// init();
