@@ -1,6 +1,8 @@
 // TODO: Include packages needed for this application
 
+const fs = require('fs');
 const inquirer = require(`inquirer`);
+const generateMarkdown = require('./generateMarkdown');
 const { writeToFile } = require('fs').promises;
 
 // TODO: Create an array of questions for user input 
@@ -51,18 +53,26 @@ const { writeToFile } = require('fs').promises;
     },
     {
         type: 'input',
-        name: 'questions',
+        name: 'question',
         message: 'Enter any questions.',
     }
 ];
 function init() {
     inquirer.prompt(questions)
     .then((data) => {
-        console.log(data);
+    const readMeContent = generateMarkdown(data);
+    fs.writeFile('README.md', readMeContent, (err) =>
+        err ? console.log(err) : console.log('Created README.md!')
+    );
+    // .then((data) => {
+    //     console.log(data);
+    // .then((data) => writeToFile('README.md', generateMarkdown(data))));
 
     });
 };
+
 init();
+
 //}
 // .then((data) => {
 //     const filename = `${data.name.toLowerCase().split(' ').join('')}.json`;
@@ -80,3 +90,4 @@ init();
 
 // Function call to initialize app
 // init();
+//
